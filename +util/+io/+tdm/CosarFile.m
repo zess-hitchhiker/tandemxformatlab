@@ -1,6 +1,6 @@
 classdef CosarFile
-    %DADFile Representation of a *.dad-File
-    %   Representation of a *.dad-File used for HITCHHIKER RAW-Data
+    %CosarFile Representation of a *.cos-File
+    %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
     properties (SetAccess = private, GetAccess = private)
         fileId %File ID for file operation
@@ -19,8 +19,8 @@ classdef CosarFile
     
     methods
         function obj = CosarFile(filename)
-            % DADFILE Opens .*dad-File and reads the Header.
-            %   obj = DADFile(filename) opens filename.
+            % CosarFile Opens *.cos-File and reads the Header.
+            %   obj = CosarFile(filename) opens filename.
             obj.filename = filename;
             obj.fileId = fopen(obj.filename,'r','b');
             data = fread(obj.fileId, 20,'uint32');
