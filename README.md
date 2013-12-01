@@ -32,5 +32,5 @@ For usage of the toolbox consider the script `getStarted.m`.
 
 Recompiling the Java class binaries
 ===================================
-To recompile the binaries used to read the xml based annotion data you can invoke the skript `util.io.tdm.make.m`. Be sure that you have installed the `xjc` jaxb compiler and the `javac`Java compiler both provided by the "JDK". Further you have to provide the xml stylesheets (xsl) included in the TanDEM-X datasets, for the xml files you want to read.
+To recompile the binaries used to read the xml based annotion data you can invoke the skript `util.io.tdm.make.m`. Be sure that you have installed the `xjc` jaxb compiler and the `javac` Java compiler both provided by the `JDK`. Further you have to provide the xml stylesheets (xsl) included in the TanDEM-X datasets, for the xml files you want to read.
 The stylesheets are configured in the make script. The precompiled classes are Java version 1.6, which is the current version shipped by MATLAB.
