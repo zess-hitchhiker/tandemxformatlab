@@ -9,11 +9,21 @@ $rev$
 
 $author$
 
-%Copyright 2013 Florian Behner, Simon Reuter
-%This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
-%The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-%The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-%You should have received a copy of the GNU General Public License along with Foobar. If not, see http://www.gnu.org/licenses/.
+Copyright 2013 Florian Behner and Simon Reuter
 
+This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
 
+The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with The TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
 
+What is provided by this toolset
+================================
+
+The TerraSAR-X/TanDEM-X Toolbox provides an MATLAB interface to read the data and annotation information delivered by the TanDEM-X mission operated by the German Aerospace Center (DLR). This dataset is specified as Level1b and COSSC product in the following documents which are reffered in the code as:
+* 'TX-GS-DD-3307' [Level 1b Product Format Specification](http://sss.terrasar-x.dlr.de/pdfs/TX-GS-DD-3307.pdf)
+* 'TD-GS-PS-3028' [TanDEM-X Experimental Product Description](https://tandemx-science.dlr.de/pdfs/TD-GS-PS-3028_TanDEM-X-Experimental-Product-Description_1.2.pdf)
+
+Further information can be found at the operators websites
+[TerraSAR-X Science Services](http://sss.terrasar-x.dlr.de "Further information concerning SAR image products")
+[TanDEM-X Science Services](https://tandemx-science.dlr.de "Further information concerning interferometric SAR products")
