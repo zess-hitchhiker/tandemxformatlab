@@ -29,7 +29,7 @@ Installation/Basic Usage
 
 Most users will add the folder structure for this package to their MATLAB path or their default workspace. Most modules are provided as MATLAB classes or Java classes with MATLAB wrapper functions.
 
-For usage of the toolbox consider the script 'getStarted.m'.
+For usage of the toolbox consider the script `getStarted.m`.
 
 Recompiling the Java class binaries
 ===================================
