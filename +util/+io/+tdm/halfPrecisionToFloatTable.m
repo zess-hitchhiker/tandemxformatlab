@@ -1,4 +1,13 @@
+%$date$, $rev$, $author$
+%Copyright 2013 Florian Behner and Simon Reuter
+%This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
+%The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+%The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%You should have received a copy of the GNU General Public License along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
+
+% This code is based on the algorithm presented by Jeroen van der Zijp in [Fast Half Float Conversions](ftp://www.fox-toolkit.org/pub/fasthalffloatconversion.pdf)
 function f=halfPrecisionToFloatTable()
+
 [mantissatable,exponenttable,offsettable]=createfloatlut();
 h=uint32(0:(2^16-1));
 t=bitshift(h,-10)+1;
@@ -24,19 +33,19 @@ offsettable(33)=0;
 end
 
 function res=convertmantissa(i)
-m=bitshift(i,13);
-e=m;
-e(:)=uint32(hex2dec('38800000'));
+mantissa=bitshift(i,13);
+exponent=mantissa;
+exponent(:)=uint32(hex2dec('38800000')); %Start with exponent offset
 
-for ind=1:length(m)
-while(~(bitand(m(ind),uint32(hex2dec('00800000'))))) % While not normalized
-    e(ind)=e(ind)-uint32(hex2dec('00800000')); % Decrement exponent (1<<23)
-    m(ind)=bitshift(m(ind),1); % Shift mantissa
+for ind=1:length(mantissa)
+while(~(bitand(mantissa(ind),uint32(hex2dec('00800000'))))) % While not normalized
+    exponent(ind)=exponent(ind)-uint32(hex2dec('00800000')); % Decrement exponent (1<<23)
+    mantissa(ind)=bitshift(mantissa(ind),1); % Shift mantissa
 end
 end
 
-m=bitand(m,bitcmp(uint32(hex2dec('00800000'))));
-res= bitor(m,e); % Return combined number
+mantissa=bitand(mantissa,bitcmp(uint32(hex2dec('00800000')))); % Clear leading one
+res= bitor(mantissa,exponent); % Return combined number
 end
 
 
