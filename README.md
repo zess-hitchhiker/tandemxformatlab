@@ -1,13 +1,9 @@
-tandemxformatlab
-================
+TerraSAR-X/TanDEM-X Toolbox for MATLAB
+======================================
 
-Matlab tools to read TerraSAR-X/TanDEM-X datasets
+MATLAB tools to read TerraSAR-X/TanDEM-X datasets
 
-$date$
-
-$rev$
-
-$author$
+$date$,$rev$,$author$
 
 Copyright 2013 Florian Behner and Simon Reuter
 
@@ -27,3 +23,13 @@ The TerraSAR-X/TanDEM-X Toolbox provides an MATLAB interface to read the data an
 Further information can be found at the operators websites
 [TerraSAR-X Science Services](http://sss.terrasar-x.dlr.de "Further information concerning SAR image products")
 [TanDEM-X Science Services](https://tandemx-science.dlr.de "Further information concerning interferometric SAR products")
+
+Installation/Basic Usage
+========================
+
+Most users will add the folder structure for this package to their MATLAB path or their default workspace. Most modules are provided as MATLAB classes or Java classes with MATLAB wrapper functions.
+
+For usage of the toolbox consider the script 'getStarted.m'.
+
+Recompiling the Java class binaries
+===================================
