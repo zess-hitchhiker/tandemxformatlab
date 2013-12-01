@@ -1,11 +1,10 @@
 TerraSAR-X/TanDEM-X Toolbox for MATLAB
 ======================================
 
-MATLAB tools to read TerraSAR-X/TanDEM-X datasets
-
+MATLAB tools to read TerraSAR-X/TanDEM-X datasets.  
 $date$,$rev$,$author$
 
-Copyright 2013 Florian Behner and Simon Reuter
+Copyright 2013 Florian Behner and Simon Reuter.
 
 This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
 
@@ -20,10 +19,8 @@ The TerraSAR-X/TanDEM-X Toolbox provides an MATLAB interface to read the data an
 * `TX-GS-DD-3307` [Level 1b Product Format Specification](http://sss.terrasar-x.dlr.de/pdfs/TX-GS-DD-3307.pdf)
 * `TD-GS-PS-3028` [TanDEM-X Experimental Product Description](https://tandemx-science.dlr.de/pdfs/TD-GS-PS-3028_TanDEM-X-Experimental-Product-Description_1.2.pdf)
 
-Further information can be found at the operators websites
-
-[TerraSAR-X Science Services](http://sss.terrasar-x.dlr.de "Further information concerning SAR image products")
-
+Further information can be found at the operators websites  
+[TerraSAR-X Science Services](http://sss.terrasar-x.dlr.de "Further information concerning SAR image products")  
 [TanDEM-X Science Services](https://tandemx-science.dlr.de "Further information concerning interferometric SAR products")
 
 Installation/Basic Usage
