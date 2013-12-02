@@ -2,17 +2,27 @@ function f=halfPrecisionToFloatTable()
 % HALFPRECISIONTOFLOATTABLE Create IEEE 754-2008 half-precision to
 %   single-precision conversion look up table
 %   LUT=HALFPRECISIONTOFLOATTABLE()
-%
-%   See also Test 
 
-% $Date: 2013-12-02 11:40:50 +0100 (Mo, 02 Dez 2013) $, $Rev: 1006 $, $Author: behner $
+% $Date: 2013-12-02 11:46:49 +0100 (Mo, 02 Dez 2013) $, $Rev: 1007 $, $Author: behner $
 % Copyright 2013 Florian Behner and Simon Reuter
 % This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
-% The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-% The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-% You should have received a copy of the GNU General Public License along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
 
-% This code is based on the algorithm presented by Jeroen van der Zijp in [Fast Half Float Conversions](ftp://www.fox-toolkit.org/pub/fasthalffloatconversion.pdf)
+% The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can
+% redistribute it and/or modify it under the terms of the GNU General
+% Public License as published by the Free Software Foundation, either
+% version 3 of the License, or (at your option) any later version.
+
+% The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope
+% that it will be useful, but WITHOUT ANY WARRANTY; without even the
+% implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+% See the GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License along
+% with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see
+% http://www.gnu.org/licenses/.
+
+% This code is based on the algorithm presented by Jeroen van der Zijp in
+% [Fast Half Float Conversions](ftp://www.fox-toolkit.org/pub/fasthalffloatconversion.pdf)
 
 [mantissatable,exponenttable,offsettable]=createfloatlut();
 h=uint32(0:(2^16-1));
