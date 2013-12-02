@@ -1,4 +1,8 @@
-%#/matlab
+classdef CosarFile
+    %CosarFile Representation of a *.cos-File
+    %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
+    
+    %#/matlab
 %$date$, $rev$, $author$
 %Copyright 2013 Florian Behner and Simon Reuter
 %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
@@ -6,9 +10,6 @@
 %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 %You should have received a copy of the GNU General Public License along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
 
-classdef CosarFile
-    %CosarFile Representation of a *.cos-File
-    %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
     properties (SetAccess = private, GetAccess = private)
         fileId %File ID for file operation
