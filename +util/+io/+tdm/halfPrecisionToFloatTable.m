@@ -5,7 +5,7 @@ function f=halfPrecisionToFloatTable()
 %
 %   See also Test 
 
-% $date$, $rev$, $author$
+% $Date: 2013-12-02 11:40:50 +0100 (Mo, 02 Dez 2013) $, $Rev: 1006 $, $Author: behner $
 % Copyright 2013 Florian Behner and Simon Reuter
 % This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
 % The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
