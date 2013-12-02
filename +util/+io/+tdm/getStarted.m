@@ -3,9 +3,8 @@
 %% Reading COSSC xml annotation
 % Please provide the filename to the COSSC dataset first
 
-filename = uigetfile({'TDM*.xml','COSSC file'},'Please provide the filename to the COSSC dataset first');
-disp(['Filename: ' filename]);
-
+[fileName, pathName] = uigetfile({'TDM*.xml','COSSC file'},'Please provide the filename to the COSSC dataset first');
+cosscDocument = util.io.tdm.readCosscProduct(fullfile(pathName,fileName));
 
 
 %% SECTION TITLE
