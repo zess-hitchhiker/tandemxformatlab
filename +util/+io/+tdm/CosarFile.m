@@ -1,3 +1,4 @@
+%#/matlab
 %$date$, $rev$, $author$
 %Copyright 2013 Florian Behner and Simon Reuter
 %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
