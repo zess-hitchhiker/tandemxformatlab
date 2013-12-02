@@ -2,7 +2,6 @@ TerraSAR-X/TanDEM-X Toolbox for MATLAB
 ======================================
 
 MATLAB tools to read TerraSAR-X/TanDEM-X datasets.  
-$date$,$rev$,$author$
 
 Copyright 2013 Florian Behner and Simon Reuter.
 
