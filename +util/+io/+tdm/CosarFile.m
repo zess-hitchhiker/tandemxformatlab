@@ -1,15 +1,14 @@
+
 classdef CosarFile
     %CosarFile Representation of a *.cos-File
     %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
-    %#/matlab
-%$date$, $rev$, $author$
-%Copyright 2013 Florian Behner and Simon Reuter
-%This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
-%The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-%The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-%You should have received a copy of the GNU General Public License along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
-
+    %$date$, $rev$, $author$
+    %Copyright 2013 Florian Behner and Simon Reuter
+    %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
+    %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+    %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    %You should have received a copy of the GNU General Public License along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
     
     properties (SetAccess = private, GetAccess = private)
         fileId %File ID for file operation
@@ -39,13 +38,7 @@ classdef CosarFile
             end
             obj.formatVersion = data(9);
             obj.rangeLineTotalNumberOfBytes=data(6);
-            if obj.formatVersion == 2
-                if data(13)~=1 || data(14)~=5 || data(15)~=10
-                    error(['Error: wrong floating point format detected for file: ' obj.filename]);
-                    return
-                end
-                obj.conversionTable=util.io.tdm.halfPrecisionToFloatTable();
-            end
+            obj.conversionTable=[];
             % Read Header Data
                         
             seekerror=fseek(obj.fileId,0,'bof');
@@ -71,18 +64,97 @@ classdef CosarFile
             end
         end
         
-        function [data] = readRangeLines(obj,burstId, startIndex, n)
-            % GETSEGMENT  Reads COSAR lines
-            %   [data, timestamp, horpos] = obj.getSegment(start,n)
-            %       reads n segments starting from start.
+        function nbrRangeSamples = getNbrRangeSamples(obj, burstId)
+            % NBRRANGESAMPLES  Gets the number of range samples
+            %   [data] = obj.readRangeLines(burstId)
+            %       gets the number of range samples of burst burstId
             %
-            %   [data, timestamp, horpos] = obj.getSegment(start)
-            %       reads all segments starting from start.
-            %
-            %   [data, timestamp, horpos] = obj.getSegment()
-            %       reads all segments.
+            %   [data] = obj.readRangeLines()
+            %       gets the number of range Samples of the first burst
+            
             if (nargin < 2)
                 burstId = 1;
+            end
+            if (length(obj.burstHeader)<burstId)
+                error(['Error: burstId (' num2str(burstId) ') exceeds number of bursts (' length(obj.burstHeader) ')']);
+                return
+            end
+            
+            nbrRangeSamples = obj.burstHeader(burstId).rangeSamples;
+        end
+        
+        function nbrAzimuthSamples = getNbrAzimuthSamples(obj, burstId)
+            % GETNBRAZIMUTHSAMPLES  Gets the number of azimuth samples
+            %   [data] = obj.readRangeLines(burstId)
+            %       gets the number of azimuth samples of burst burstId
+            %
+            %   [data] = obj.readRangeLines()
+            %       gets the number of azimuth samples of the first burst
+            
+            if (nargin < 2)
+                burstId = 1;
+            end
+            if (length(obj.burstHeader)<burstId)
+                error(['Error: burstId (' num2str(burstId) ') exceeds number of bursts (' length(obj.burstHeader) ')']);
+                return
+            end
+            
+            nbrAzimuthSamples = obj.burstHeader(burstId).azimuthSamples;
+        end
+        
+        function azimuthSampleRelativeIndex = getAzimuthSampleRelativeIndex(obj, burstId)
+            % NBRRANGESAMPLES  Gets the relative index of the azimuth
+            % samples
+            %   [data] = obj.readRangeLines(burstId)
+            %       gets the relative index of of the azimuth samples of burst burstId
+            %
+            %   [data] = obj.readRangeLines()
+            %       gets the relative index of of the azimuth samples of the first burst
+            
+            if (nargin < 2)
+                burstId = 1;
+            end
+            if (length(obj.burstHeader)<burstId)
+                error(['Error: burstId (' num2str(burstId) ') exceeds number of bursts (' length(obj.burstHeader) ')']);
+                return
+            end
+            
+            azimuthSampleRelativeIndex = obj.burstHeader(burstId).azimuthSampleRelativeIndex;
+        end
+
+
+        
+        function [data] = readRangeLines(obj,burstId, startIndex, n)
+            % READRANGELINES  Reads COSAR Range Lines
+            %   [data] = obj.readRangeLines(burstId, start, n)
+            %       reads n range lines of burst burstId starting from start.
+            %
+            %   [data] = obj.readRangeLines(burstId,start)
+            %       reads all range lines starting from start.
+            %
+            %   [data] = obj.readRangeLines(burstId)
+            %       reads all range lines of burst burstId.
+            %
+            %   [data] = obj.readRangeLines()
+            %       reads all range lines of the first burst.
+            
+            if obj.formatVersion == 2
+                if data(13)~=1 || data(14)~=5 || data(15)~=10
+                    error(['Error: wrong floating point format detected for file: ' obj.filename]);
+                    return
+                end
+                if isempty(obj.conversionTable)
+                    obj.conversionTable=util.io.tdm.halfPrecisionToFloatTable();
+                end
+            end
+            
+            if (nargin < 2)
+                burstId = 1;
+            end
+            
+            if (length(obj.burstHeader)<burstId)
+                error(['Error: burstId (' num2str(burstId) ') exceeds number of bursts (' length(obj.burstHeader) ')']);
+                return
             end
             
             if (nargin < 3)
