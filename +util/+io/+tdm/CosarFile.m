@@ -2,7 +2,7 @@ classdef CosarFile
     %CosarFile Representation of a *.cos-File
     %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
-    %$Date: 2013-12-03 08:38:55 +0100 (Di, 03 Dez 2013) $, $Rev: 1016 $, $Author: behner $
+    %$Date: 2013-12-03 08:48:07 +0100 (Di, 03 Dez 2013) $, $Rev: 1017 $, $Author: behner $
     %Copyright 2013 Florian Behner and Simon Reuter
     %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
     
@@ -135,8 +135,6 @@ classdef CosarFile
             azimuthSampleRelativeIndex = obj.burstHeader(burstId).azimuthSampleRelativeIndex;
         end
         
-        
-        
         function [data,maskInvalid] = readRangeLines(obj,burstId, startIndex, n)
             % READRANGELINES  Reads COSAR Range Lines
             %   [data,maskInvalid] = READRANGELINES(burstId, start, n)
@@ -211,14 +209,12 @@ classdef CosarFile
                 maskInvalid=maskInvalid | bsxfun(@gt,indexAzimuth,azimuthSampleLastValidIndex);
             end
         end
-        
-        
+       
         function delete(obj)
             % Delete methods are always called before a object
             % of the class is destroyed
             
             fclose(obj.fileId);
         end
-    end  % methods
-    
+    end  % methods  
 end
