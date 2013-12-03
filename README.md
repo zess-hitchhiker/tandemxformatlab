@@ -34,11 +34,61 @@ For usage of the toolbox consider the script `getStarted.m`.
 Function Overview
 =================
 
-Read COSSC annotation files specified in `TD-GS-PS-3028` using:
+###Reading TanDEM-X mission interferometric data###
 
+Read COSSC annotation files specified in `TD-GS-PS-3028` using:
 ```matlab
 cosscDocument = util.io.tdm.readCosscProduct(fileName);
 ```
+The function returns a Java Object representing the file content.
+
+Read Image Layer Info annotation file specified in `TD-GS-PS-3028` using:
+```matlab
+iliDocument = util.io.tdm.readImageLayerInfo(fileName);
+```
+The function returns a Matlab struct representing the file content.
+
+Read Spectral Filter Frequency annotation file specified in `TD-GS-PS-3028` using:
+```matlab
+sffDocument = util.io.tdm.readSpectralFilterFrequency(fileName);
+```
+The function returns a Matlab struct representing the xml tree.
+
+Read the SUN raster format as specified in `TD-GS-PS-3028` using:
+```matlab
+[rasFile, rasColorTable] = util.io.tdm.readImageRasterFile(fileName);
+```
+The function returns the indexed or floating point image and the colortable if available.
+
+###Reading TerraSAR-X/TanDEM-X mission Level1b monostatic data###
+
+Read Level1b xml annotation files specified in `TX-GS-DD-3307` using:
+```matlab
+level1bDocument = util.io.tdm.readLevel1Product(fileName);
+```
+The function returns a Java Object representing the file content.
+
+Read Geo Reference annotation files specified in `TX-GS-DD-3307` using:
+```matlab
+georefDocument = util.io.tdm.readGeoReference(fileName);
+```
+The function returns a Java Object representing the file content.
+
+Read Antenna Phase Pattern annotation files specified in `TX-GS-DD-3307` using:
+```matlab
+rfAntPatDocument = util.io.tdm.readAntennaPhasePattern(fileName);
+```
+The function returns a Java Object representing the file content.
+
+Read COSAR image data files specified in `TX-GS-DD-3307` using:
+```matlab
+cosarFile = util.io.tdm.CosarFile(fileName);
+cosarFile.getNbrAzimuthSamples
+cosarFile.getNbrRangeSamples
+imageData=cosarFile.readRangeLines();
+[imageSection,imageInvalid]=cosarFile.readRangeLines(1,3000,1000);
+```
+The function returns a Matlab Object representing the file. The data is read through the ```readRangeLines()``` method.
 
 Recompiling the Java class binaries
 ===================================
