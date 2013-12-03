@@ -29,7 +29,7 @@ Installation/Basic Usage
 
 Most users will add the folder structure for this package to their MATLAB path or their default workspace. Most modules are provided as MATLAB classes or Java classes with MATLAB wrapper functions. The toolbox makes use of [MATLAB packages](http://www.mathworks.de/de/help/matlab/matlab_oop/scoping-classes-with-packages.html) to create namespaces.
 
-For usage of the toolbox consider the script `getStarted.m`.
+For usage of the toolbox consider the script `getStarted.m`(getStarted.m).
 
 Function Overview
 =================
