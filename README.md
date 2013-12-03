@@ -35,6 +35,7 @@ Function Overview
 =================
 
 Read COSSC annotation files specified in `TD-GS-PS-3028` using:
+
 ```matlab
 cosscDocument = util.io.tdm.readCosscProduct(fileName);
 ```
