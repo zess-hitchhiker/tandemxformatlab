@@ -1,8 +1,8 @@
-function [ data, types ] = readImageLayerInfo( filename )
+function data = readImageLayerInfo( filename )
 % READIMAGELAYERINFO Reads Image Layer Info Textfile
-%    [ data, types ] = READIMAGELAYERINFO( filename )
+%     data = READIMAGELAYERINFO( filename )
 
-% $Date: 2013-12-03 08:48:07 +0100 (Di, 03 Dez 2013) $, $Rev: 1017 $, $Author: behner $
+% $Date: 2013-12-03 14:04:09 +0100 (Di, 03 Dez 2013) $, $Rev: 1020 $, $Author: behner $
 % Copyright 2013 Florian Behner and Simon Reuter
 % This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
 
@@ -24,12 +24,25 @@ try
     fs=fopen(filename,'r');
     dat=textscan(fs,'%s %s %s\n');
     
-    data=cell2struct(dat{3},dat{1});
-    types=cell2struct(dat{2},dat{1});
+    fieldnames=dat{1};
+    values=cellfun(@parseValue,dat{2},dat{3},'UniformOutput',false);
+    data=cell2struct(values,fieldnames);
     
     fclose(fs);
-catch
+catch err
     fclose(fs);
+    rethrow(err);
 end
+
+function matlabValue=parseValue(type,value)
+switch type
+    case 'INT_32'
+        matlabValue=str2double(value);
+    case 'STR'
+        matlabValue=value(2:end-1);
+    otherwise
+        error('Datatype not known');
 end
+
+
 

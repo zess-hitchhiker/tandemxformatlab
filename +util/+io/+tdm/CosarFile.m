@@ -2,7 +2,7 @@ classdef CosarFile
     %CosarFile Representation of a *.cos-File
     %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
-    %$Date: 2013-12-03 08:48:07 +0100 (Di, 03 Dez 2013) $, $Rev: 1017 $, $Author: behner $
+    %$Date: 2013-12-03 14:04:09 +0100 (Di, 03 Dez 2013) $, $Rev: 1020 $, $Author: behner $
     %Copyright 2013 Florian Behner and Simon Reuter
     %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
     
@@ -46,6 +46,12 @@ classdef CosarFile
             if (swapbytes(typecast(uint8('CSAR'),'uint32'))~=data(8))
                 error(['Error: wrong format detected for file: ' obj.filename]);
                 return
+            end
+            if obj.formatVersion == 2
+                if data(13)~=1 || data(14)~=5 || data(15)~=10
+                    error(['Error: wrong floating point format detected for file: ' obj.filename]);
+                    return
+                end
             end
             obj.formatVersion = data(9);
             obj.rangeLineTotalNumberOfBytes=data(6);
@@ -150,10 +156,6 @@ classdef CosarFile
             %       reads all range lines of the first burst.
             
             if obj.formatVersion == 2
-                if data(13)~=1 || data(14)~=5 || data(15)~=10
-                    error(['Error: wrong floating point format detected for file: ' obj.filename]);
-                    return
-                end
                 if isempty(obj.conversionTable)
                     obj.conversionTable=util.io.tdm.halfPrecisionToFloatTable();
                 end
@@ -209,12 +211,12 @@ classdef CosarFile
                 maskInvalid=maskInvalid | bsxfun(@gt,indexAzimuth,azimuthSampleLastValidIndex);
             end
         end
-       
+        
         function delete(obj)
             % Delete methods are always called before a object
             % of the class is destroyed
             
             fclose(obj.fileId);
         end
-    end  % methods  
+    end  % methods
 end
