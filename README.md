@@ -35,25 +35,25 @@ Function Overview
 =================
 
 ###Reading TanDEM-X mission interferometric data###
-
+####COSSC XML####
 Read COSSC annotation files specified in `TD-GS-PS-3028` using:
 ```matlab
 cosscDocument = util.io.tdm.readCosscProduct(fileName);
 ```
 The function returns a Java Object representing the file content.
-
+####Image Layer Info Text####
 Read Image Layer Info annotation file specified in `TD-GS-PS-3028` using:
 ```matlab
 iliDocument = util.io.tdm.readImageLayerInfo(fileName);
 ```
 The function returns a Matlab struct representing the file content.
-
+####Spectral Filter Frequency XML####
 Read Spectral Filter Frequency annotation file specified in `TD-GS-PS-3028` using:
 ```matlab
 sffDocument = util.io.tdm.readSpectralFilterFrequency(fileName);
 ```
 The function returns a Matlab struct representing the xml tree.
-
+####SUN raster data####
 Read the SUN raster format as specified in `TD-GS-PS-3028` using:
 ```matlab
 [rasFile, rasColorTable] = util.io.tdm.readImageRasterFile(fileName);
@@ -61,25 +61,25 @@ Read the SUN raster format as specified in `TD-GS-PS-3028` using:
 The function returns the indexed or floating point image and the colortable if available.
 
 ###Reading TerraSAR-X/TanDEM-X mission Level1b monostatic data###
-
+####Level1b XML####
 Read Level1b xml annotation files specified in `TX-GS-DD-3307` using:
 ```matlab
 level1bDocument = util.io.tdm.readLevel1Product(fileName);
 ```
 The function returns a Java Object representing the file content.
-
+####Geo Reference XML####
 Read Geo Reference annotation files specified in `TX-GS-DD-3307` using:
 ```matlab
 georefDocument = util.io.tdm.readGeoReference(fileName);
 ```
 The function returns a Java Object representing the file content.
-
+####Antenna Phase Pattern XML####
 Read Antenna Phase Pattern annotation files specified in `TX-GS-DD-3307` using:
 ```matlab
 rfAntPatDocument = util.io.tdm.readAntennaPhasePattern(fileName);
 ```
 The function returns a Java Object representing the file content.
-
+####COSAR Image data####
 Read COSAR image data files specified in `TX-GS-DD-3307` using:
 ```matlab
 cosarFile = util.io.tdm.CosarFile(fileName);
