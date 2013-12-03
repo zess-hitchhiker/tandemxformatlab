@@ -1,14 +1,24 @@
-
 classdef CosarFile
     %CosarFile Representation of a *.cos-File
     %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
-    %$date$, $rev$, $author$
+    %$Date: 2013-12-03 08:38:55 +0100 (Di, 03 Dez 2013) $, $Rev: 1016 $, $Author: behner $
     %Copyright 2013 Florian Behner and Simon Reuter
     %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
-    %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-    %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-    %You should have received a copy of the GNU General Public License along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see http://www.gnu.org/licenses/.
+    
+    %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is free software: you can
+    %redistribute it and/or modify it under the terms of the GNU General
+    %Public License as published by the Free Software Foundation, either
+    %version 3 of the License, or (at your option) any later version.
+    
+    %The TerraSAR-X/TanDEM-X Toolbox for MATLAB is distributed in the hope
+    %that it will be useful, but WITHOUT ANY WARRANTY; without even the
+    %implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+    %PURPOSE. See the GNU General Public License for more details.
+    
+    %You should have received a copy of the GNU General Public License
+    %along with the TerraSAR-X/TanDEM-X Toolbox for MATLAB. If not, see
+    %http://www.gnu.org/licenses/.
     
     properties (SetAccess = private, GetAccess = private)
         fileId %File ID for file operation
@@ -27,8 +37,9 @@ classdef CosarFile
     
     methods
         function obj = CosarFile(filename)
-            % CosarFile Opens *.cos-File and reads the Header.
+            % COSARFILE Opens *.cos-File and reads the Header.
             %   obj = CosarFile(filename) opens filename.
+            
             obj.filename = filename;
             obj.fileId = fopen(obj.filename,'r','b');
             data = fread(obj.fileId, 20,'uint32');
@@ -40,7 +51,7 @@ classdef CosarFile
             obj.rangeLineTotalNumberOfBytes=data(6);
             obj.conversionTable=[];
             % Read Header Data
-                        
+            
             seekerror=fseek(obj.fileId,0,'bof');
             positionBurst=0;
             while ~seekerror
@@ -85,10 +96,10 @@ classdef CosarFile
         
         function nbrAzimuthSamples = getNbrAzimuthSamples(obj, burstId)
             % GETNBRAZIMUTHSAMPLES  Gets the number of azimuth samples
-            %   [data] = obj.readRangeLines(burstId)
+            %   [data] = GETNBRAZIMUTHSAMPLES(burstId)
             %       gets the number of azimuth samples of burst burstId
             %
-            %   [data] = obj.readRangeLines()
+            %   [data] = GETNBRAZIMUTHSAMPLES()
             %       gets the number of azimuth samples of the first burst
             
             if (nargin < 2)
@@ -123,8 +134,8 @@ classdef CosarFile
             
             azimuthSampleRelativeIndex = obj.burstHeader(burstId).azimuthSampleRelativeIndex;
         end
-
-
+        
+        
         
         function [data,maskInvalid] = readRangeLines(obj,burstId, startIndex, n)
             % READRANGELINES  Reads COSAR Range Lines
@@ -192,21 +203,22 @@ classdef CosarFile
             end
             azimuthSampleFirstValidIndex=obj.burstHeader(burstId).azimuthSampleFirstValidIndex;
             azimuthSampleLastValidIndex=obj.burstHeader(burstId).azimuthSampleLastValidIndex;
-            if (nargout > 1)        
+            if (nargout > 1)
                 [indexRange,indexAzimuth]=ndgrid(1:obj.burstHeader(burstId).rangeSamples,startIndex:(startIndex+n-1));
                 maskInvalid=bsxfun(@lt,indexRange,rangeSampleFirstValidIndex);
                 maskInvalid=maskInvalid | bsxfun(@gt,indexRange,rangeSampleLastValidIndex);
                 maskInvalid=maskInvalid | bsxfun(@lt,indexAzimuth,azimuthSampleFirstValidIndex);
                 maskInvalid=maskInvalid | bsxfun(@gt,indexAzimuth,azimuthSampleLastValidIndex);
             end
-        end        
+        end
         
-        % Delete methods are always called before a object
-        % of the class is destroyed
+        
         function delete(obj)
+            % Delete methods are always called before a object
+            % of the class is destroyed
+            
             fclose(obj.fileId);
         end
     end  % methods
     
 end
-
