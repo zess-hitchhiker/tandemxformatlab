@@ -2,7 +2,7 @@ classdef CosarFile
     %CosarFile Representation of a *.cos-File
     %   Representation of a *.cos-File used for TerraSAR-X/TanDEM-X complex data
     
-    %$Date: 2013-12-03 14:04:09 +0100 (Di, 03 Dez 2013) $, $Rev: 1020 $, $Author: behner $
+    %$Date: 2013-12-03 14:31:42 +0100 (Di, 03 Dez 2013) $, $Rev: 1021 $, $Author: behner $
     %Copyright 2013 Florian Behner and Simon Reuter
     %This file is part of the TerraSAR-X/TanDEM-X Toolbox for MATLAB.
     
@@ -81,12 +81,23 @@ classdef CosarFile
             end
         end
         
-        function nbrRangeSamples = getNbrRangeSamples(obj, burstId)
-            % NBRRANGESAMPLES  Gets the number of range samples
-            %   [data] = NBRRANGESAMPLES(burstId)
+        function nbrBursts = getNbrBursts(obj)
+            % GETNBRBURSTS  Gets the number of range samples
+            %   [data] = GETNBRBURSTS(burstId)
             %       gets the number of range samples of burst burstId
             %
-            %   [data] = NBRRANGESAMPLES()
+            %   [data] = GETNBRBURSTS()
+            %       gets the number of range Samples of the first burst
+                        
+            nbrBursts = length(obj.burstHeader);
+        end
+        
+        function nbrRangeSamples = getNbrRangeSamples(obj, burstId)
+            % GETNBRRANGESAMPLES  Gets the number of range samples
+            %   [data] = GETNBRRANGESAMPLES(burstId)
+            %       gets the number of range samples of burst burstId
+            %
+            %   [data] = GETNBRRANGESAMPLES()
             %       gets the number of range Samples of the first burst
             
             if (nargin < 2)
