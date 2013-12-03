@@ -66,10 +66,10 @@ classdef CosarFile
         
         function nbrRangeSamples = getNbrRangeSamples(obj, burstId)
             % NBRRANGESAMPLES  Gets the number of range samples
-            %   [data] = obj.readRangeLines(burstId)
+            %   [data] = NBRRANGESAMPLES(burstId)
             %       gets the number of range samples of burst burstId
             %
-            %   [data] = obj.readRangeLines()
+            %   [data] = NBRRANGESAMPLES()
             %       gets the number of range Samples of the first burst
             
             if (nargin < 2)
@@ -103,13 +103,15 @@ classdef CosarFile
         end
         
         function azimuthSampleRelativeIndex = getAzimuthSampleRelativeIndex(obj, burstId)
-            % NBRRANGESAMPLES  Gets the relative index of the azimuth
+            % GETAZIMUTHSAMPLERELATIVEINDEX  Gets the relative index of the azimuth
             % samples
-            %   [data] = obj.readRangeLines(burstId)
+            %   [data] = GETAZIMUTHSAMPLERELATIVEINDEX(burstId)
             %       gets the relative index of of the azimuth samples of burst burstId
             %
-            %   [data] = obj.readRangeLines()
+            %   [data] = GETAZIMUTHSAMPLERELATIVEINDEX()
             %       gets the relative index of of the azimuth samples of the first burst
+            %
+            % See also GETNBRAZIMUTHSAMPLES,NBRRANGESAMPLES
             
             if (nargin < 2)
                 burstId = 1;
@@ -124,18 +126,18 @@ classdef CosarFile
 
 
         
-        function [data] = readRangeLines(obj,burstId, startIndex, n)
+        function [data,maskInvalid] = readRangeLines(obj,burstId, startIndex, n)
             % READRANGELINES  Reads COSAR Range Lines
-            %   [data] = obj.readRangeLines(burstId, start, n)
+            %   [data,maskInvalid] = READRANGELINES(burstId, start, n)
             %       reads n range lines of burst burstId starting from start.
             %
-            %   [data] = obj.readRangeLines(burstId,start)
+            %   [data,maskInvalid] = READRANGELINES(burstId,start)
             %       reads all range lines starting from start.
             %
-            %   [data] = obj.readRangeLines(burstId)
+            %   [data,maskInvalid] = READRANGELINES(burstId)
             %       reads all range lines of burst burstId.
             %
-            %   [data] = obj.readRangeLines()
+            %   [data,maskInvalid] = READRANGELINES()
             %       reads all range lines of the first burst.
             
             if obj.formatVersion == 2
@@ -190,13 +192,13 @@ classdef CosarFile
             end
             azimuthSampleFirstValidIndex=obj.burstHeader(burstId).azimuthSampleFirstValidIndex;
             azimuthSampleLastValidIndex=obj.burstHeader(burstId).azimuthSampleLastValidIndex;
-            
-            [indexRange,indexAzimuth]=ndgrid(1:obj.burstHeader(burstId).rangeSamples,1:obj.burstHeader(burstId).azimuthSamples);
-            maskInvalid=bsxfun(@lt,indexRange,rangeSampleFirstValidIndex);
-            maskInvalid=maskInvalid | bsxfun(@gt,indexRange,rangeSampleLastValidIndex);
-            maskInvalid=maskInvalid | bsxfun(@lt,indexAzimuth,azimuthSampleFirstValidIndex);
-            maskInvalid=maskInvalid | bsxfun(@gt,indexAzimuth,azimuthSampleLastValidIndex);
-            data(maskInvalid)=NaN;
+            if (nargout > 1)        
+                [indexRange,indexAzimuth]=ndgrid(1:obj.burstHeader(burstId).rangeSamples,startIndex:(startIndex+n-1));
+                maskInvalid=bsxfun(@lt,indexRange,rangeSampleFirstValidIndex);
+                maskInvalid=maskInvalid | bsxfun(@gt,indexRange,rangeSampleLastValidIndex);
+                maskInvalid=maskInvalid | bsxfun(@lt,indexAzimuth,azimuthSampleFirstValidIndex);
+                maskInvalid=maskInvalid | bsxfun(@gt,indexAzimuth,azimuthSampleLastValidIndex);
+            end
         end        
         
         % Delete methods are always called before a object
