@@ -83,10 +83,14 @@ The function returns a Java Object representing the file content.
 Read COSAR image data files specified in `TX-GS-DD-3307` using:
 ```matlab
 cosarFile = util.io.tdm.CosarFile(fileName);
+% Get Information about the file
+cosarFile.getNbrBursts
 cosarFile.getNbrAzimuthSamples
 cosarFile.getNbrRangeSamples
+% Get the whole dataset of the first burst
 imageData=cosarFile.readRangeLines();
-[imageSection,imageInvalid]=cosarFile.readRangeLines(1,3000,1000);
+% Get a portion of the dataset
+[imageSection,imageInvalid]=cosarFile.readRangeLines(burstId,azimuthStartRead,nbrAzimuthRead);
 ```
 The function returns a Matlab Object representing the file. The data is read through the ```readRangeLines()``` method.
 
