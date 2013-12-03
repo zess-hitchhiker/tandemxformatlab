@@ -31,6 +31,14 @@ Most users will add the folder structure for this package to their MATLAB path o
 
 For usage of the toolbox consider the script `getStarted.m`.
 
+Function Overview
+=================
+
+Read COSSC annotation files specified in `TD-GS-PS-3028` using:
+```matlab
+cosscDocument = util.io.tdm.readCosscProduct(fileName);
+```
+
 Recompiling the Java class binaries
 ===================================
 To recompile the binaries used to read the xml based annotion data you can invoke the skript `util.io.tdm.make.m`. Be sure that you have installed the `xjc` jaxb compiler and the `javac` Java compiler both provided by the `JDK`. Further you have to provide the xml stylesheets (xsl) included in the TanDEM-X datasets, for the xml files you want to read.
